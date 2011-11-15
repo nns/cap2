@@ -79,8 +79,12 @@ app.get('/viewer', function(req, res){
   res.render('view');
 });
 
+if(process.env.PORT){
+    app.listen(process.env.PORT);
+} else {
+    app.listen(3000);
+}
 
-app.listen(3000);
 var io = sio.listen(app);
 io.configure(function () {
   io.set('log level', 1); 

@@ -1,0 +1,10 @@
+{
+    "name": "cap"
+  , "version": "1"
+  , "private": true
+  , "dependencies": {
+      "express": ""
+    , "jade": ""
+    , "socket.io":""
+  }
+}

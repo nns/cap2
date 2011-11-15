@@ -1,0 +1,38 @@
+script(src='/javascripts/jquery-1.5.2.min.js')
+script(src='/javascripts/jquery-ui-1.8.13.custom.min.js')
+script(src='/socket.io/socket.io.js')
+script
+  $(function(){
+    var socket = io.connect();
+    socket.on('connect', function () {
+      socket.emit('init');
+    });
+    socket.on('ref',function(data){
+      var elm = $('#' + data.name);
+      var timestamp = new Date().getTime();
+      if(elm.length != 0){
+        elm.attr('src',data.path+'?'+timestamp);
+      } else {
+        var dv1 = $('<div style="width:210px;height:210px;float:left;"></div>');
+        dv1.draggable();
+        var dv = $('<div>'+data.name+'</div>');
+        dv.resizable({handles:'se'});
+        dv1.append(dv);
+        var img = $('<img id="'+data.name+'" src="'+data.path+'?'+timestamp+'"/>');
+        img.css({height:'100%',width:'100%'});
+        dv.append(img);
+        $('#content').append(dv1);
+      }
+    });
+    socket.on('addUser',function(data){
+      $.each(data,function(i,v){
+        var u = $('<div id="'+v.id+'">'+v.name+'</div>');
+        $('#usr').append(u);
+      });
+    });
+    socket.on('rmUser',function(data){
+      $('#' + data).remove();
+    });
+  });
+#content
+  #usr

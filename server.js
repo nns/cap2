@@ -82,7 +82,6 @@ app.get('/viewer', function(req, res){
 if(process.env.PORT){
     app.listen(process.env.PORT);
 } else {
-    console.log('');
     app.listen(3000);
 }
 
